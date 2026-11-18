@@ -4,7 +4,7 @@ A burger shop website where a customer picks burgers, places an order, gets conf
 the order move from **Received** to **Delivered**. I built it hands-on in 10 days as my AWS Cloud Computing
 final project. The website is simple on purpose: the point of the project is the AWS architecture behind it.
 
-> Built by: **YOUR NAME** | Course: AWS Cloud Computing | Region: `us-east-1`
+> Built by: **viswabai** | Course: AWS Cloud Computing | Region: `us-east-1`
 >
 > This is a student lab project. The live environment is deleted after the demo to stop AWS charges, so the
 > site is not online any more. The code, the architecture and the lessons are all here.
@@ -148,4 +148,4 @@ The project fits the AWS free tier only if resources are stopped between session
 
 ## License
 
-Code: MIT, see [LICENSE](LICENSE). The burger photos and calorie sheets used in the real site are not included.
+Code: MIT, see [LICENSE](VISWABAI). The burger photos and calorie sheets used in the real site are not included.
