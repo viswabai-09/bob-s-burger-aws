@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Confirmed – Cloud Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="simple">
+    <div class="panel">
+      <div style="font-size:4rem">✅</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thank you! Your order has been received and is being prepared. If you entered an email, a confirmation message will arrive shortly.</p>
+      <div class="order-id" id="orderId">—</div>
+      <p class="note">Save this Order ID to track your food.</p>
+      <p>
+        <a class="btn" id="trackLink" href="track.html">Track My Order</a>
+        <a class="btn" href="index.html" style="margin-left:8px">Back to Menu</a>
+      </p>
+    </div>
+  </div>
+  <script>
+    var id = new URLSearchParams(location.search).get("orderId") || "";
+    document.getElementById("orderId").textContent = id || "No order ID found";
+    if (id) document.getElementById("trackLink").href = "track.html?orderId=" + encodeURIComponent(id);
+  </script>
+</body>
+</html>

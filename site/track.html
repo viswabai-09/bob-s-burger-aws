@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track Order – Cloud Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="simple">
+    <div class="panel">
+      <h1>Track Your Order</h1>
+      <form class="track-form" id="trackForm">
+        <input id="idInput" type="text" placeholder="Enter your Order ID" maxlength="64" required>
+        <button class="btn" type="submit">Track</button>
+      </form>
+      <div id="result" style="display:none">
+        <div class="order-id" id="shownId"></div>
+        <div class="steps" id="steps"></div>
+        <p id="statusText" style="font-size:1.2rem;margin:0"></p>
+        <p class="note" id="statusNote"></p>
+      </div>
+      <p><a href="index.html" style="color:#ffbe33">← Back to Menu</a></p>
+    </div>
+  </div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  "use strict";
+  // Status values stored in the DynamoDB tracking table (Day 5 / Day 7).
+  var STAGES = ["RECEIVED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED"];
+  var LABELS = { RECEIVED: "Received", PREPARING: "Preparing", OUT_FOR_DELIVERY: "On the way", DELIVERED: "Delivered" };
+  var timer = null;
+
+  function show(id, status, note) {
+    document.getElementById("result").style.display = "block";
+    document.getElementById("shownId").textContent = id;
+    var idx = STAGES.indexOf(status);
+    var box = document.getElementById("steps");
+    box.innerHTML = "";
+    STAGES.forEach(function (s, i) {
+      var st = document.createElement("div");
+      st.className = "step" + (idx >= 0 && i <= idx ? " done" : "");
+      var dot = document.createElement("div"); dot.className = "dot"; dot.textContent = (idx >= 0 && i <= idx) ? "✓" : "";
+      var lb = document.createElement("div"); lb.textContent = LABELS[s];
+      st.appendChild(dot); st.appendChild(lb); box.appendChild(st);
+    });
+    document.getElementById("statusText").textContent = idx >= 0 ? "Status: " + LABELS[status] : "Status: " + status;
+    document.getElementById("statusNote").textContent = note || "";
+  }
+
+  function demoStatus(id) {              // used only when no backend is configured
+    var t = parseInt(localStorage.getItem("ck_demo_" + id) || "0", 10);
+    if (!t) return null;
+    var s = (Date.now() - t) / 1000;
+    return s < 20 ? "RECEIVED" : s < 60 ? "PREPARING" : s < 120 ? "OUT_FOR_DELIVERY" : "DELIVERED";
+  }
+
+  function check(id) {
+    var base = (window.API_BASE_URL || "").replace(/\/$/, "");
+    if (!base) {
+      var d; try { d = demoStatus(id); } catch (e) { d = null; }
+      if (!d) return show(id, "NOT FOUND", "No order with this ID (demo mode).");
+      return show(id, d, "Demo mode: status changes automatically over 2 minutes.");
+    }
+    fetch(base + "/api/orders/" + encodeURIComponent(id) + "/status")
+      .then(function (r) {
+        if (r.status === 404) throw new Error("not found");
+        if (!r.ok) throw new Error("server error " + r.status);
+        return r.json();
+      })
+      .then(function (data) { show(id, data.status, ""); })
+      .catch(function (e) { show(id, "UNAVAILABLE", e.message === "not found" ? "No order with this ID." : "Could not reach the server. Try again."); });
+  }
+
+  function start(id) {
+    id = id.trim();
+    if (!id) return;
+    if (timer) clearInterval(timer);
+    check(id);
+    timer = setInterval(function () { check(id); }, 10000);   // refresh every 10 s
+  }
+
+  document.getElementById("trackForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    start(document.getElementById("idInput").value);
+  });
+
+  var pre = new URLSearchParams(location.search).get("orderId");
+  if (pre) { document.getElementById("idInput").value = pre; start(pre); }
+})();
+</script>
+</body>
+</html>

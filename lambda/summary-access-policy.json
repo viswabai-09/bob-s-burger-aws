@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadOrderStatusTable",
+      "Effect": "Allow",
+      "Action": "dynamodb:Scan",
+      "Resource": "arn:aws:dynamodb:us-east-1:YOUR-ACCOUNT-ID:table/bobs-burger-order-status"
+    },
+    {
+      "Sid": "SendSummaryEmail",
+      "Effect": "Allow",
+      "Action": "sns:Publish",
+      "Resource": "arn:aws:sns:us-east-1:YOUR-ACCOUNT-ID:bobs-burger-ops-alerts"
+    }
+  ]
+}
