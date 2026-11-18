@@ -238,4 +238,4 @@ The project fits the AWS free tier only if resources are stopped between session
 
 ## License
 
-Code: MIT, see [LICENSE](VISWABAI). The burger photos and calorie sheets used in the real site are not included.
+Code: MIT, see [LICENSE](LICENSE). The burger photos and calorie sheets used in the real site are not included.
