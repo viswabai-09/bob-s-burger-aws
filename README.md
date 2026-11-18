@@ -117,11 +117,101 @@ Every file that mentions an account number uses the placeholder `YOUR-ACCOUNT-ID
 - Each service has its own least-privilege role or security group. The database accepts connections only from the servers.
 - The server recomputes prices itself, so a customer cannot change the total in the browser.
 
-<!-- ## Screenshots
+## Screenshots
+
+One customer order, followed from the website through the AWS services behind it.
+
+### 1. Website and storage
+
 ![Website](screenshots/01-website.png)
-![Order confirmation](screenshots/04-order-confirmation.png)
-![Track order](screenshots/08-track-order.png)
--->
+
+*The Bob's Burger site, served by CloudFront.*
+
+![S3 bucket](screenshots/02-s3-bucket.png)
+![S3 images folder](screenshots/02-s3-bucket-images.png)
+
+*S3 stores the website files and the burger photos.*
+
+![CloudFront distribution](screenshots/03-cloudfront-1.png)
+![CloudFront settings](screenshots/03-cloudfront-2.png)
+
+*CloudFront delivers the site and forwards `/api` calls to the load balancer.*
+
+### 2. Network and database
+
+![VPC map](screenshots/04-vpc-map.png)
+
+*The network: public and private subnets in two Availability Zones.*
+
+![RDS database](screenshots/05-rds.png)
+![Orders in RDS](screenshots/06-rds-query.png)
+
+*The RDS MySQL database, and the saved orders read with a SQL query.*
+
+### 3. Servers and scaling
+
+![Load balancer](screenshots/07-load-balancer.png)
+![Target group](screenshots/07-target-group.png)
+
+*The load balancer and its healthy servers.*
+
+![Auto Scaling group](screenshots/08-auto-scaling.png)
+
+*Auto Scaling keeps the right number of servers running.*
+
+![API answered by server 1](screenshots/09-api-server-1.png)
+![API answered by server 2](screenshots/09-api-server-2.png)
+
+*Two refreshes answered by two different servers.*
+
+### 4. One order, end to end
+
+![Cart](screenshots/10-cart.png)
+![Order confirmed](screenshots/11-confirmation.png)
+
+*The cart with the 10% discount, then the confirmation page.*
+
+![DynamoDB status 1](screenshots/12-dynamodb-1.png)
+![DynamoDB status 2](screenshots/12-dynamodb-2.png)
+
+*The live order status in DynamoDB changing over time.*
+
+![SQS queue](screenshots/13-sqs.png)
+
+*The order queue and its dead-letter queue.*
+
+![Lambda monitor](screenshots/14-lambda-1.png)
+![Lambda trigger](screenshots/14-lambda-2.png)
+
+*The Lambda function, triggered by the queue.*
+
+![Email 1](screenshots/15-emails-1.png)
+![Email 2](screenshots/15-emails-2.png)
+
+*SNS emails the customer at each step.*
+
+![Track order 1](screenshots/16-track-order-1.png)
+![Track order 2](screenshots/16-track-order-2.png)
+
+*The Track Order page moving from Preparing to Delivered.*
+
+### 5. Shared storage, monitoring and automation
+
+![EFS](screenshots/17-efs.png)
+
+*EFS, the shared receipts folder.*
+
+![CloudWatch](screenshots/20-cloudwatch-1.png)
+
+*CloudWatch dashboard and alarms.*
+
+![CloudTrail](screenshots/21-cloudtrail.png)
+
+*CloudTrail records who did what.*
+
+![EventBridge](screenshots/22-eventbridge.png)
+
+*EventBridge schedules.*
 
 ## What I learned
 
