@@ -6,12 +6,12 @@ shown with captions on the [main README](../README.md#screenshots).
 
 Account numbers and email addresses were covered before upload.
 
-## Demo video (50 seconds)
+## Demo video (55 seconds)
 
 A short screen recording of the whole flow: browse the menu, add to cart, place an order, then watch the
 status move on the Track page.
 
-**Watch it:** [Bob's Burger demo video]((https://youtu.be/cBwL-SRaGbo))
+**Watch it:** [Bob's Burger demo video]([https://youtu.be/cBwL-SRaGbo])
 
 ## 1. Website and storage
 
