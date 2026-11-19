@@ -119,7 +119,7 @@ Every file that mentions an account number uses the placeholder `YOUR-ACCOUNT-ID
 
 ## Demo
 
-[![Watch the 50-second demo](screenshots/01-website.png)]((https://youtu.be/cBwL-SRaGbo))
+[![Watch the demo](screenshots/01-website.png)](https://youtu.be/cBwL-SRaGbo)
 
 Click the picture to watch the 55-second demo: menu, cart, order, then live order tracking.
 
