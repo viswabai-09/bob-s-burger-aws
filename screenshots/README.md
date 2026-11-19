@@ -11,7 +11,7 @@ Account numbers and email addresses were covered before upload.
 A short screen recording of the whole flow: browse the menu, add to cart, place an order, then watch the
 status move on the Track page.
 
-**Watch it:** [Bob's Burger demo video](PASTE-YOUR-VIDEO-LINK-HERE)
+**Watch it:** [Bob's Burger demo video]((https://youtu.be/cBwL-SRaGbo))
 
 ## 1. Website and storage
 
